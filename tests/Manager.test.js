@@ -1,5 +1,5 @@
 
-const Manager = require('../Manager')
+const Manager = require('../library/Manager')
 const manager = new Manager("Bruce Wayne", "002", "notBatman@gmail.com", "1000")
 
 describe("manager", () => {
