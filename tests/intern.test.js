@@ -1,5 +1,5 @@
 const Intern = require('../library/Intern')
-const intern = new Intern("Tim Drake", "003", "notnightwing@gmail.com",)
+const intern = new Intern("Tim Drake", "003", "notnightwing@gmail.com", "Gotham University")
 
 
 describe("intern", () => {
