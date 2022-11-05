@@ -2,45 +2,46 @@ const inquirer = require("inquirer");
 const fs = require("fs");
 
 const Manager = require("./library/Manager");
-const Egineer = require("./Egineer");
+const Egineer = require("./library/Egineer");
 const Intern = require("./library/Intern");
-const htmlPage = require("./"); // link html to page
-const { inheritInnerComments } = require("@babel/types");
+const htmlPage = require("./generateProfiles"); // link html to page
+const Employee = require("./library/Employee");
 
-//questions for employees 
-const questions = [
-    {
-        type:"input",
-        name:"name",
-        message:"What is employees name?"
-    },
-    {
-        type:"input",
-        name:"id",
-        message:"What is employees id number?"
-    },
-    {
-        type:"input",
-        name:"email",
-        message:"What is employees email address?"
-    },
-    {
-        type:"list",
-        name:"role",
-        message:"What position is this employee filling?",
-        choices: ["Manager", "Intern", "Egineer"]
-    },
-]
 
-//manager specific question here:
+let teamMembers = []
 
-managerQuestions = [
-    {
-        type:"input",
-        name: "officeNumber",
-        message:"What is the managers office number?"
 
-    }
-]
-
-init();
+function appMenu(){
+    function addManager() {
+        inquirer
+        .prompt([
+        {
+            type: 'input',
+            name: 'managersName',
+            message: 'Please enter the name of the manager',
+    
+        },
+        {
+            type: 'input',
+            name: 'managersId',
+            message: 'Please enter the ID of the manager',
+    
+        },
+        {
+            type: 'input',
+            name: 'managersEmail',
+            message: 'Please enter the email of the manager',
+        },
+        {
+            type: 'input',
+            name: 'managersOffice',
+            message: 'Please enter the office number of the manager',
+        }
+    ])  
+    .then((data) => {
+        const newManager = new Manager(data.ManagerName, data.ManagerId, data.ManagerEmail, data.ManagerOffice)
+        teamMembers.push(newManager)
+        chooseMember()
+    })
+    };
+    
