@@ -34,3 +34,4 @@ describe ("getSchool method", () => {
         expect(intern.getSchool()).toBe("Gotham University")
     })
 })
+// having issues with getSchool working
