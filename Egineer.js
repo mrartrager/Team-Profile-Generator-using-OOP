@@ -1,4 +1,4 @@
-const employee = require("./team")
+const employee = require("./Employee.js")
 
 class Egineer extends employee {
 constructor ({name, email, id, github}){
