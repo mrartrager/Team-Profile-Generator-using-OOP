@@ -4,33 +4,33 @@ const fs = require("fs");
 const Manager = require("./library/Manager");
 const Engineer = require("./library/Engineer");
 const Intern = require("./library/Intern");
-const htmlPage = require("./generateProfiles"); 
+// const htmlPage = require("./generateProfiles"); 
 const Employee = require("./library/Employee");
 
 
-let teamMembers = []
+let employeeAnswer = []
 
 const managerPrompt = () => {
     inquirer.prompt([
         {
           type: "input",
           name: "Name",
-          message: "Please enter the Managers name.",
+          message: "Please enter the Managers name:",
         },
         {
           type: "input",
           name: "ID",
-          message: "Please enter the Managers ID number.",
+          message: "Please enter the Managers ID number:",
         },
         {
           type: "input",
           name: "Email",
-          message: "Please enter the Managers email address.",
+          message: "Please enter the Managers email address:",
         },
         {
           type: "input",
           name: "Office Number",
-          message: "Please enter the Managers office number.",
+          message: "Please enter the Managers office number:",
         },
     ])
     .then((answers) => {
@@ -39,30 +39,28 @@ const managerPrompt = () => {
     })
     .catch((error) => console.log(error));
 };
-managerPrompt(); 
-
-
+ 
 const engineerPrompt = () => {
     inquirer.prompt([
         {
             type: "input",
             name: "name",
-            message: "Please enter the Engineers name.",
+            message: "Please enter the Engineers name:",
         },
         {
             type: "input",
             name: "name",
-            message: "Please enter the Engineers ID number.",
+            message: "Please enter the Engineers ID number:",
         },
         {
             type: "input",
             name: "email",
-            message: "Please enter the Engineers email address.",
+            message: "Please enter the Engineers email address:",
         },
         {
             type: "input",
             name: "github",
-            message: "Please enter the Engineers GitHub.",
+            message: "Please enter the Engineers GitHub:",
         },
     ])
     .then((answers) => {
@@ -79,26 +77,26 @@ const internPrompt = () => {
         {
             type: "input",
             name: "name",
-            message: "Please enter the Interns name.",
+            message: "Please enter the Interns name:",
         },
         {
             type: "input",
             name: "ID",
-            message: "Please enter the Interns ID."
+            message: "Please enter the Interns ID:"
         },
         {
             type: "input",
             name: "email",
-            message: "Please enter the Interns email.",
+            message: "Please enter the Interns email:",
         },
         {
             type: "input",
             name: "University",
-            message: "Please enter the Interns University",
+            message: "Please enter the Interns University:",
         },
     ])
     .then((answers) => {
-        employeeAnswers.push(answers);
+        employeeAnswer.push(answers);
         addEmployeePrompt();
     })
     .catch((error) => console.log(error));
@@ -120,12 +118,38 @@ const addEmployeePrompt = () => {
         } else if (answers.addEmployee === "Intern"){
             internPrompt() // calling intern function
         } else {
-            employeeAnswers.forEach((employee) => {
-                if () {
-
+            employeeAnswer.forEach((employee) => {
+                if (employee.office) {
+                    const manager = new Manager (
+                        employee.name,
+                        employee.id,
+                        employee.email,
+                        employee.office
+                    );
+                    employee.push(manager);
+                    employee;
+                } else if (employee.github) {
+                    const engineer = new Engineer (
+                        employee.name,
+                        employee.id,
+                        employee.email,
+                        employee.github
+                    );
+                    employee.push(engineer);
+                    employee;
+                } else {
+                    const intern = new Intern (
+                        employee.name,
+                        employee.id,
+                        employee.email,
+                        employee.university
+                    )
+                    employee.push(intern)
+                    employee;
                 }
             })
         }
     })
-}
-
+    .catch((error) => console.log(error))
+};
+managerPrompt();
