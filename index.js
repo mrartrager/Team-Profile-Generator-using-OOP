@@ -35,11 +35,11 @@ const managerPrompt = () => {
     ])
     .then((answers) => {
         employeeAnswer.push(answers);
-        nextEmployeePrompt();
+        addEmployeePrompt();
     })
     .catch((error) => console.log(error));
 };
-managerPrompt();
+managerPrompt(); 
 
 
 const engineerPrompt = () => {
@@ -67,11 +67,11 @@ const engineerPrompt = () => {
     ])
     .then((answers) => {
         employeeAnswer.push(answers);
-        nextEmployeePrompt();
+        addEmployeePrompt();
     })
     .catch((error) => console.log(error));
 }
-engineerPrompt()
+// engineerPrompt() will call later in the addEmployeePrompt function 
 
 
 const internPrompt = () => {
@@ -99,11 +99,33 @@ const internPrompt = () => {
     ])
     .then((answers) => {
         employeeAnswers.push(answers);
-        nextEmployeePrompt();
+        addEmployeePrompt();
     })
     .catch((error) => console.log(error));
 };
-internPrompt();
+// internPrompt() will call later in the addEmployeePrompt function 
 
+const addEmployeePrompt = () => {
+    inquirer.prompt([
+        {
+            type:"list",
+            name: "addEmployee",
+            message: "Is there anyone else that needs to be added?",
+            choices: ["Engineer", "Intern", "My team is complete, I don't need anyone else."],
+        },
+    ])
+    .then((answers) => {
+        if(answers.addEmployee === "Engineer"){
+            engineerPrompt() // calling engineer function 
+        } else if (answers.addEmployee === "Intern"){
+            internPrompt() // calling intern function
+        } else {
+            employeeAnswers.forEach((employee) => {
+                if () {
 
+                }
+            })
+        }
+    })
+}
 
