@@ -4,72 +4,71 @@ const fs = require("fs");
 const Manager = require("./library/Manager");
 const Engineer = require("./library/Engineer");
 const Intern = require("./library/Intern");
-// const htmlPage = require(""); 
-const Employee = require("./library/Employee");
+// const Employee = require("./library/Employee");
 
+// const generateHTML = require("./src/index.html") 
 
-let employeeAnswer = []
+let employeeAnswer = []; 
+
+let employeeArray = []; 
 
 const managerPrompt = () => {
     inquirer.prompt([
         {
-          type: "input",
-          name: "Name",
-          message: "Please enter the Managers name:",
+            type: "input",
+            name: "Name",
+            message: "Please enter the Managers name: ",
         },
         {
-          type: "input",
-          name: "ID",
-          message: "Please enter the Managers ID number:",
+            type: "input",
+            name: "ID",
+            message: "Please enter the Managers ID number: ",
         },
         {
-          type: "input",
-          name: "Email",
-          message: "Please enter the Managers email address:",
+            type: "input",
+            name: "Email",
+            message: "Please enter the Managers email address: ",
         },
         {
-          type: "input",
-          name: "Office Number",
-          message: "Please enter the Managers office number:",
+            type: "input",
+            name: "Office Number",
+            message: "Please enter the Managers office number: "
         },
     ])
     .then((answers) => {
-        employeeAnswer.push(answers);
-        addEmployeePrompt();
+        employeeAnswer.push(answers)
+        nextEmployeePrompt()
     })
-    .catch((error) => console.log(error));
-};
- 
+}
+
 const engineerPrompt = () => {
     inquirer.prompt([
         {
             type: "input",
             name: "name",
-            message: "Please enter the Engineers name:",
+            message: "Please enter the Engineers name: ",
         },
         {
             type: "input",
-            name: "name",
-            message: "Please enter the Engineers ID number:",
+            name: "id",
+            message: "Please enter the Engineers ID: ",
         },
         {
             type: "input",
             name: "email",
-            message: "Please enter the Engineers email address:",
+            message: "Please enter the Engineers email address: ",
         },
         {
             type: "input",
             name: "github",
-            message: "Please enter the Engineers GitHub:",
+            message: "Please enter the engineer's GitHub username: ",
         },
     ])
     .then((answers) => {
-        employeeAnswer.push(answers);
-        addEmployeePrompt();
+        employeeAnswer.push(answers)
+        nextEmployeePrompt()
     })
-    .catch((error) => console.log(error));
 }
-// engineerPrompt() will call later in the addEmployeePrompt function 
 
 
 const internPrompt = () => {
@@ -77,79 +76,70 @@ const internPrompt = () => {
         {
             type: "input",
             name: "name",
-            message: "Please enter the Interns name:",
+            message: "Please enter the intern's name: ",
         },
         {
             type: "input",
-            name: "ID",
-            message: "Please enter the Interns ID:"
+            name: "id",
+            message: "Please enter the intern's employee ID: ",
         },
         {
             type: "input",
             name: "email",
-            message: "Please enter the Interns email:",
+            message: "Please enter the intern's email: ",
         },
         {
             type: "input",
-            name: "University",
-            message: "Please enter the Interns University:",
+            name: "school",
+            message: "Please enter the intern's University: ",
         },
     ])
     .then((answers) => {
-        employeeAnswer.push(answers);
-        addEmployeePrompt();
+        employeeAnswer.push(answers)
+        nextEmployeePrompt()
     })
-    .catch((error) => console.log(error));
-};
-// internPrompt() will call later in the addEmployeePrompt function 
+}
 
-const addEmployeePrompt = () => {
+const nextEmployeePrompt = () => {
     inquirer.prompt([
         {
-            type:"list",
-            name: "addEmployee",
-            message: "Is there anyone else that needs to be added?",
-            choices: ["Engineer", "Intern", "My team is complete, I don't need anyone else."],
+            type: "list",
+            name: "nextEmployee",
+            message: "Add another employee?",
+            choices: ["Engineer", "Intern", "My team is complete"]
         },
     ])
     .then((answers) => {
-        if(answers.addEmployee === "Engineer"){
-            engineerPrompt() // calling engineer function 
-        } else if (answers.addEmployee === "Intern"){
-            internPrompt() // calling intern function
+        if (answers.nextEmployee === "Engineer") {
+            engineerPrompt()
+        } else if (answers.nextEmployee === "Intern") {
+            internPrompt()
         } else {
             employeeAnswer.forEach((employee) => {
-                if (employee.office) {
-                    const manager = new Manager (
-                        employee.name,
-                        employee.id,
-                        employee.email,
-                        employee.office
-                    );
-                    employeeAnswer.push(manager);
-                    employee;
+                if (employee.officeNumber) {
+
+                    const manager = new Manager(employee.name, employee.id, employee.email, employee.officeNumber)
+                    employeeArray.push(manager)
+
                 } else if (employee.github) {
-                    const engineer = new Engineer (
-                        employee.name,
-                        employee.id,
-                        employee.email,
-                        employee.github
-                    );
-                    employeeAnswer.push(engineer);
-                    employee;
+
+                    const engineer = new Engineer(employee.name, employee.id, employee.email, employee.github)
+                    employeeArray.push(engineer)
+                    
                 } else {
-                    const intern = new Intern (
-                        employee.name,
-                        employee.id,
-                        employee.email,
-                        employee.university
-                    )
-                    employeeAnswer.push(intern)
-                    employee;
+                    
+                    const intern = new Intern(employee.name, employee.id, employee.email, employee.school)
+                    employeeArray.push(intern)
                 }
             })
+        
+            fs.writeFileSync("./src/index.html", generateHTML(employeeArray))
         }
     })
-    .catch((error) => console.log(error))
-};
-managerPrompt();
+    
+}
+
+// initialize the prompt
+managerPrompt()
+
+
