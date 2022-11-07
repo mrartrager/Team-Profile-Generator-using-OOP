@@ -126,7 +126,7 @@ const addEmployeePrompt = () => {
                         employee.email,
                         employee.office
                     );
-                    employee.push(manager);
+                    employeeAnswer.push(manager);
                     employee;
                 } else if (employee.github) {
                     const engineer = new Engineer (
@@ -135,7 +135,7 @@ const addEmployeePrompt = () => {
                         employee.email,
                         employee.github
                     );
-                    employee.push(engineer);
+                    employeeAnswer.push(engineer);
                     employee;
                 } else {
                     const intern = new Intern (
@@ -144,7 +144,7 @@ const addEmployeePrompt = () => {
                         employee.email,
                         employee.university
                     )
-                    employee.push(intern)
+                    employeeAnswer.push(intern)
                     employee;
                 }
             })
