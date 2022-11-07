@@ -6,7 +6,7 @@ const Engineer = require("./library/Engineer");
 const Intern = require("./library/Intern");
 // const Employee = require("./library/Employee");
 
-// const generateHTML = require("./src/index.html") 
+// const generateHTML = require("./src/generateProfiles") 
 
 let employeeAnswer = []; 
 
