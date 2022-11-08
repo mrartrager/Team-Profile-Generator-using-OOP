@@ -15,6 +15,9 @@
   make sure to use inquirer 8.2.4
 
   ## Usage 
+  Link to video about the program: https://drive.google.com/file/d/1qOzKaHW-wRHfvacpHwEFYdDSTwYqhy2i/view
+
+  
   "node index.js" in cli to start the program, then answer the questions
 
   ## Contribution 
