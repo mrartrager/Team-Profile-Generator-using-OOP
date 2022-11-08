@@ -16,22 +16,22 @@ const managerPrompt = () => {
     inquirer.prompt([
         {
             type: "input",
-            name: "Name",
+            name: "name",
             message: "Please enter the Managers name: ",
         },
         {
             type: "input",
-            name: "ID",
+            name: "id",
             message: "Please enter the Managers ID number: ",
         },
         {
             type: "input",
-            name: "Email",
+            name: "email",
             message: "Please enter the Managers email address: ",
         },
         {
             type: "input",
-            name: "Office Number",
+            name: "office",
             message: "Please enter the Managers office number: "
         },
     ])
